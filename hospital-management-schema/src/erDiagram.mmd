@@ -1,0 +1,146 @@
+erDiagram
+  COUNTRY {
+    int id PK
+    string code
+    string name
+  }
+
+  CITY {
+    int id PK
+    string name
+    int country_id FK
+  }
+
+  PHONE {
+    int id PK
+    int country_id FK
+    string number
+  }
+
+  HOSPITAL {
+    int id PK
+    string name
+    string address
+    int city_id FK
+    int capacity
+  }
+
+  DEPARTMENT {
+    int id PK
+    string name
+    int hospital_id FK
+  }
+
+  DOCTOR {
+    int id PK
+    string name
+    string address
+    date DOB
+    int country_id FK
+    int department_id FK
+  }
+
+  STAFF {
+    int id PK
+    string name
+    string role
+    string address
+    date DOB
+    int country_id FK
+    int department_id FK
+  }
+
+  PATIENT {
+    int id PK
+    string name
+    string address
+    date DOB
+    int country_id FK
+  }
+
+  APPOINTMENT {
+    int id PK
+    int doctor_id FK
+    int patient_id FK
+    datetime appointment_date
+    string reason
+  }
+
+  ENCOUNTER {
+    int id PK
+    int appointment_id FK
+    datetime visit_time
+    string notes
+  }
+
+  DIAGNOSIS {
+    int id PK
+    int encounter_id FK
+    string condition
+  }
+
+  TREATMENT {
+    int id PK
+    int encounter_id FK
+    string procedure
+    string medication
+  }
+
+  BILL {
+    int id PK
+    int patient_id FK
+    int encounter_id FK
+    float amount
+    datetime billing_time
+    string status
+  }
+
+  PAYMENT {
+    int id PK
+    int bill_id FK
+    string method
+  }
+
+  HOSPITAL_PHONE {
+    int hospital_id FK
+    int phone_id FK
+  }
+
+  DOCTOR_PHONE {
+    int doctor_id FK
+    int phone_id FK
+  }
+
+  PATIENT_PHONE {
+    int patient_id FK
+    int phone_id FK
+  }
+
+  STAFF_PHONE {
+    int staff_id FK
+    int phone_id FK
+  }
+
+  %% relations
+  COUNTRY ||--o{ CITY : has
+  CITY ||--o{ HOSPITAL : has
+
+  HOSPITAL ||--o{ DEPARTMENT : has
+
+  DEPARTMENT ||--o{ DOCTOR : includes
+  DEPARTMENT ||--o{ STAFF : includes
+
+  DOCTOR ||--o{ APPOINTMENT : attends
+  PATIENT ||--o{ APPOINTMENT : books
+
+  APPOINTMENT ||--o{ ENCOUNTER : results_in
+  ENCOUNTER ||--o{ DIAGNOSIS : includes
+  ENCOUNTER ||--o{ TREATMENT : includes
+
+  PATIENT ||--o{ BILL : receives
+  BILL ||--o{ PAYMENT : has
+
+  PATIENT ||--o{ PATIENT_PHONE : has
+  DOCTOR ||--o{ DOCTOR_PHONE : has
+  STAFF ||--o{ STAFF_PHONE : has
+  HOSPITAL ||--o{ HOSPITAL_PHONE : has

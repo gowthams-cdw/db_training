@@ -1,0 +1,73 @@
+erDiagram
+  FACT_ENCOUNTER {
+    int encounter_id FK
+    int doctor_id FK
+    int patient_id FK
+    int department_id FK
+    int hospital_id FK
+    int staff_id FK
+    int date_id FK
+    int visits
+  }
+
+  DIM_HOSPITAL {
+    int id PK
+    string name
+    string address
+    string country
+    string city
+    int capacity
+  }
+
+  DIM_DEPARTMENT {
+    int id PK
+    string name
+    string country
+    string city
+    int hospital_id FK
+  }
+
+  DIM_PATIENT {
+    int id PK
+    string name
+    string address
+    date DOB
+    string country
+    string city
+  }
+
+  DIM_DOCTOR {
+    int id PK
+    string name
+    string address
+    date DOB
+    string country
+    string city
+    int department_id FK
+  }
+
+  DIM_STAFF {
+    int id PK
+    string name
+    string role
+    string address
+    date DOB
+    string country
+    string city
+    int department_id FK
+  }
+
+  DIM_DATE {
+    int id PK
+    date date
+    int day
+    int month
+    int year
+  }
+
+  FACT_ENCOUNTER }o--|| DIM_HOSPITAL : hospital
+  FACT_ENCOUNTER }o--|| DIM_DEPARTMENT : department
+  FACT_ENCOUNTER }o--|| DIM_PATIENT : patient
+  FACT_ENCOUNTER }o--|| DIM_DOCTOR : doctor
+  FACT_ENCOUNTER }o--|| DIM_STAFF : staff
+  FACT_ENCOUNTER }o--|| DIM_DATE : date
