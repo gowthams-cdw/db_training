@@ -1,0 +1,4 @@
+1. mongodb.pdf
+2. redis.pdf
+3. Explore basics of Cassandra
+4. Explore basics of Graph DB (Neo4j)

@@ -1,0 +1,17 @@
+[
+  { "name": "Alice", "age": 29, "role": "Engineer", "department": "Engineering", "salary": 95000, "status": "active" },
+  { "name": "Bob", "age": 35, "role": "Manager", "department": "Engineering", "salary": 120000, "status": "active" },
+  { "name": "Carol", "age": 27, "role": "Engineer", "department": "Engineering", "salary": 88000, "status": "active" },
+  { "name": "David", "age": 41, "role": "Senior Engineer", "department": "Engineering", "salary": 135000, "status": "active" },
+  { "name": "Eva", "age": 32, "role": "Designer", "department": "Design", "salary": 82000, "status": "active" },
+  { "name": "Frank", "age": 28, "role": "Designer", "department": "Design", "salary": 78000, "status": "inactive" },
+  { "name": "Grace", "age": 36, "role": "Lead Designer", "department": "Design", "salary": 105000, "status": "active" },
+  { "name": "Henry", "age": 45, "role": "VP Sales", "department": "Sales", "salary": 150000, "status": "active" },
+  { "name": "Iris", "age": 30, "role": "Sales Executive", "department": "Sales", "salary": 72000, "status": "active" },
+  { "name": "Jack", "age": 33, "role": "Sales Executive", "department": "Sales", "salary": 74000, "status": "active" },
+  { "name": "Karen", "age": 38, "role": "HR Manager", "department": "HR", "salary": 92000, "status": "active" },
+  { "name": "Leo", "age": 26, "role": "HR Coordinator", "department": "HR", "salary": 58000, "status": "active" },
+  { "name": "Mia", "age": 31, "role": "Data Analyst", "department": "Analytics", "salary": 97000, "status": "active" },
+  { "name": "Nathan", "age": 29, "role": "Data Analyst", "department": "Analytics", "salary": 94000, "status": "inactive" },
+  { "name": "Olivia", "age": 34, "role": "Data Scientist", "department": "Analytics", "salary": 115000, "status": "active" }
+]
