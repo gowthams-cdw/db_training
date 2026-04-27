@@ -338,7 +338,7 @@ db.products.aggregate(
 25. Explore commands lookup, unwind & watch.
 
 ```
-#lookup -> performs outter join (from, localField, foreignField, as)
+#lookup -> performs left outer join (from, localField, foreignField, as)
 #unwind -> give individual docs for each item in array
 #watch -> watches for specific event listener and do action (db.collection.watch())
 ```
