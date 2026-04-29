@@ -1,6 +1,8 @@
 1. Write a SQL query to remove the details of an employee whose first name ends in ‘even’
 
 ```[sql]
+start transaction;
+
 -- remove constraints from employees.manager_id
 update employees
 set manager_id = NULL
@@ -22,6 +24,8 @@ where manager_id in (
 -- remove the details
 delete from employees
 where first_name like "%even";
+
+commit;
 ```
 
 ---
@@ -119,10 +123,15 @@ where locate("A", email) > 0;
 ```[sql]
 select
     employee_id,
-    concat_ws(" ", first_name, last_name) as full_name,
-    email
-from employees
-where length(concat_ws(" ", first_name, last_name)) < 12;
+    full_name,
+    email from (
+        select
+            employee_id,
+            concat_ws(" ", first_name, last_name) as full_name,
+            email
+        from employees
+    ) as emp
+where length(full_name) < 12;
 ```
 
 ---
@@ -219,7 +228,7 @@ select
     employee_id,
     first_name,
     concat_ws(", ",
-        dayname(hire_date),
+        left(dayname(hire_date), 3),
         concat_ws(" ", monthname(hire_date), day(hire_date)),
         year(hire_date)
     ) as date_joined
@@ -233,8 +242,8 @@ from employees;
 ```[sql]
 select round(avg(salary), 3) as avg_salary from employees
 where (
-    hire_date > "1996-01-08" and
-    hire_date < "2000-01-01"
+    hire_date > cast('1996-01-08' as date) and
+    hire_date < cast('2000-01-01' as date)
 );
 ```
 
@@ -465,8 +474,7 @@ join employees m on e.manager_id = m.employee_id;
 
 ---
 
-33. .write a SQL query to display the department name, city, and state
-    province for each department.
+33. write a SQL query to display the department name, city, and state province for each department.
 
 ```[sql]
 select d.department_name, l.city, l.state_province from departments d
@@ -560,6 +568,100 @@ where e.salary = (
     select max(salary) from employees
     where year(hire_date) = year(e.hire_date)
 );
+```
+
+---
+
+### Review Comments
+
+1. Implement a transaction rollback (success & failure scenario)
+
+```
+start transaction;
+-- queries
+
+-- if error rollback;
+commit;
+```
+
+---
+
+2. delete vs truncate
+
+```
+-- delete not resets auto_increment feature
+-- truncate resets auto_increment feature
+```
+
+---
+
+3. column reference in where condition
+
+```
+-- use subquery
+-- cte (common table expression)
+-- use having (having can see alias) (not recommended, since need to be used with aggregate functions)
+```
+
+---
+
+4. update table set vs alter table set in q10
+
+```
+update employees
+set unq_id = concat_ws("-", first_name, last_name, email);
+```
+
+---
+
+5. Write a SQL query to find the employee with second and third maximum salary with and without using top/limit keyword
+
+```[sql]
+-- with limit and offset
+-- second highest salary people
+select employee_id, salary from employees
+where salary = (
+    select distinct salary as salary from employees
+    order by salary desc
+    limit 1 offset 1
+);
+
+-- third highest salary people
+select employee_id, salary from employees
+where salary = (
+    select distinct salary from employees
+    order by salary desc
+    limit 1 offset 2
+);
+
+-- without limit and offset
+select employee_id, salary
+from (
+  select employee_id, salary,
+         dense_rank() over (order by salary desc) as rnk
+  from employees
+i) as emp
+where rnk in (2, 3);
+```
+
+---
+
+6. Fetch all details of top 3 highly paid employees who are in department Shipping and IT
+
+```[sql]
+select salary from employees e
+join departments d on e.department_id = d.department_id
+where d.department_name = "Shipping" or d.department_name = "IT"
+order by salary desc
+limit 3;
+```
+
+---
+
+7. Print the day in short format for question 16
+
+```[sql]
+left(dayname(hire_date), 3),
 ```
 
 ---
